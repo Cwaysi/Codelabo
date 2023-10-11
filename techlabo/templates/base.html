@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title> Codelabo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h721I5RP5K5P5MDnf2W4+q4Yf6KXjy2OoWnP" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://etufuormarke.s3.amazonaws.com/static/css/main.css">
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7199622335605948"
+	crossorigin="anonymous"></script>
+      {% block custom_js %}
+
+    {% endblock custom_js %}
+
+	
+
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark" >
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" style="color: white">
+                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-5 d-none d-sm-inline">C<i class="fa fa-code" style="color:gold" aria-hidden="true"></i> Codelabo</span>
+                    </a>
+                    {% if user.is_authenticated %}
+                                <span class="d-none d-sm-inline mx-1"> Welcome, {{ request.user.first_name }}</span>
+                                {% endif %}
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="color: white" id="menu">
+                        <li class="nav-item">
+                            <a href="{% url 'home' %}" style="color: white" class="nav-link align-middle px-0">
+                                <i class="fa fa-home" aria-hidden="true"> </i><span class="ms-1 d-none d-sm-inline" style="color: white"> Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#submenu1" style="color:white" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fa fa-archive" aria-hidden="true"></i> <span class="ms-1 d-none d-sm-inline" style="color: white">My Projects </span> </a>
+                            <ul class="collapse  nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="{% url 'posted' %}" class="nav-link px-0" style="color: white"> <span class="d-none d-sm-inline" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </span> Posted </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'cofounding' %}" class="nav-link px-0" style="color:white"> <span class="d-none d-sm-inline" style="color: white"><i class="fa fa-handshake-o" aria-hidden="true"></i></span> CoFounding </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{% url 'requestreceive' %}" style="color:white" class="nav-link px-0 align-middle">
+                                <i class="fa fa-share-square" aria-hidden="true"></i> <span class="ms-1 d-none d-sm-inline" style="color: white">Requests</span></a>
+                        </li>
+                        
+                       
+                        <li>
+                            <a href="#" style="color: white" class="nav-link px-0 align-middle">
+                                <i class="fa fa-commenting" aria-hidden="true"></i> <span class="ms-1 d-none d-sm-inline" style="color: white">Messages </span> </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'editprofile' request.user.id %}" style="color: white" class="nav-link px-0 align-middle">
+                                <i class="fa fa-user" aria-hidden="true"></i> <span class="ms-1 d-none d-sm-inline" style="color: white">Profile</span> </a>
+                                
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}" style="color: white" class="nav-link px-0 align-middle">
+                                <i class="fa fa-user-times" aria-hidden="true"></i> <span class="ms-1 d-none d-sm-inline" style="color: white">Logout</span> </a>
+                                
+                        </li>
+                    </ul>
+                    <hr>
+                  
+                </div>
+            </div>
+            <div class="col py-3">
+                <div class="container">
+                    <br>
+                    
+                    {% block content %}
+        
+        
+                    {% endblock content %}
+                 </div><br>
+            </div>
+        </div>
+    </div>
+     
+		 
+		
+
+		 
+		  
+<!-- Include LazyLoad library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.3.0/lazyload.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-fV8ll5d5S0V+aIgtd/xFp+Obx6UG1nXrtfN+w2bW6U1Hxyq3h6F7/jTynAQKjJBg" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h721I5RP5K5P5MDnf2W4+q4Yf6KXjy2OoWnP" crossorigin="anonymous"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

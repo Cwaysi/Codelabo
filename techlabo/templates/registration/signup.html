@@ -1,0 +1,57 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up</title>
+        <!-- Bootstrap 5 CSS (CDN) -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <style>
+            body {
+                background-color: #f8f9fa;
+            }
+    
+            .login-container {
+                max-width: 400px;
+                margin: auto;
+                margin-top: 100px;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 5px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            }
+    
+            .login-container h2 {
+                margin-bottom: 20px;
+            }
+    
+            .btn-login {
+                width: 100%;
+            }
+        </style>
+    </head>
+<body>
+    <div class="container">
+        <br><br>
+        <center><h1>Codelabo</h1></center>
+        <div class="container" style="width: 700px">
+            <h2 class="text-center">Register For Free</h2>
+
+<form method="post">
+{% csrf_token %}
+{{form|crispy}}
+<br>
+<button type='submit' class='btn btn-success'>Submit</button>
+<a href='{% url 'login' %}' class='btn btn-primary'>Already have an account, Login</a>
+</form>
+</div>
+</div>
+   <!-- Bootstrap 5 JS (CDN) -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<br><br>
+<h3>Founder's Profile</h3><br><hr>
+<h4>{{ profile.user.first_name }} {{ profile.user.last_name }}</span></h4>
+<p>Location: {{ profile.location }} </p>
+<p>Phone: {{ profile.phone }} </p>
+<p>Tech Stack:
+    <ul>
+        {% for tech_stack in profile.tech_stack.all %}
+            <li>{{ tech_stack.name }}</li>
+        {% endfor %}
+    </ul>
+</p>
+<p>Github: <a href="{{ profile.github }}">{{ profile.user.first_name }}'s Github</a> </p>
+<p>linkedin: <a href="{{ profile.linkedin}}">{{ profile.user.first_name }}'s Linkedin</a> </p>
+
+<a href="" class= "btn btn-success">Send Message</a>
+{% endblock content %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2>🚀 Exciting Projects Looking for Co-Founders 🚀</h2>
+    <hr>
+    <div class='container'>
+        <form method="GET" action="{% url 'home' %}">
+            <input class='form-control' type="text" name="q" placeholder="Search Product title, or industry">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class='btn btn-warning' type="submit"><i class="fa fa-search"></i>Search</button></div>
+        </form>
+    </div><br>
+
+    {% for project in projects %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title" >{{ project.title }}</h5>
+          <p class="card-text" style="text-indent: 20px;">{{ project.description }}</p>
+          <div class='card' style="text-indent: 20px;">
+            <div class="card-body">
+                <div class='row'>
+                    <div class='col-6'>
+          <p class="card-text" style="text-indent: 20px;"><strong>🏢 Industry:</strong> {{ project.industry }}</p>
+          <p class="card-text" style="text-indent: 20px;"><strong>💻 Tech Stack Needed:</strong> {% for tech_stack in project.tech_stack_needed.all %}{{ tech_stack.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+          <p class="card-text" style="text-indent: 20px;"><strong>👤 Founder:</strong> {{ project.founder.username }} {{ project.founder.last_name }}</p>
+                    </div>
+                    <div class='col-6'>
+          <p class="card-text" style="text-indent: 20px;"><strong>👥 Co-Founders Needed:</strong> {{ project.cofounders_needed }}</p>
+          <p class="card-text" style="text-indent: 20px;"><strong>📅 Created:</strong> {{ project.date_created }}</p>
+          <p class="card-text" style="text-indent: 20px;"><strong>🔄 Last Updated:</strong> {{ project.date_updated }}</p>
+                    </div>        
+        </div> 
+        <div class="d-flex justify-content-end">
+          {% if project.founder == request.user %}
+            <a href="{% url 'editproject' project.id %}" style="border-radius: 5%" class='btn btn-secondary'>Edit Project</a>
+          {% elif project.id in req_made %}
+            <h6> request sent </h6>
+          {% else %}
+            <button type="button" data-toggle="modal" data-target="#exampleModal{{ project.id }}" style="border-radius: 5%" class='btn btn-primary'>
+              Request
+            </button>
+          {% endif %}
+        </div>   
+        </div> </div> </div>
+        </div><br>
+        
+      
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request to be a co-founder of {{ project.title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{% url 'request' project.id %}" id="requestForm{{ project.id }}">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  <button type='submit' class='btn btn-primary'>Send Request</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+  </div>
+  <script>
+    $('#exampleModal{{ project.id }}').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget); // Button that triggered the modal
+      var projectId = button.data('project-id'); // Extract info from data-* attributes
+      var formAction = '{% url "request" 0 %}'.replace('0', projectId);
+      var modal = $(this);
+  
+      modal.find('form').attr('action', formAction);
+    });
+  </script>
+  
+{% endblock content %}

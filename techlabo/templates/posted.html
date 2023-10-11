@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    
+    
+        
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <i class="fas fa-plus mr-2"></i>
+    Add New Project
+  </button>
+  <hr>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type='submit' class='btn btn-primary'>Post Project</button>
+                
+                </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+
+    <!-- DataTable -->
+    <div class="card shadow mb-12">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">My Projects</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th >#</th>
+                            <th >Title</th>
+                            <th>Industry</th>
+                            <th >Description</th>
+                            <th >Cofounders Needed</th>
+                            <th>Cofounders</th>
+                            <th >Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project_with_cofounders in projects_with_cofounders %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ project_with_cofounders.project.title }}</td>
+                                <td>{{ project_with_cofounders.project.industry }}</td>
+                                <td>{{ project_with_cofounders.project.description }}</td>
+                                <td>{{ project_with_cofounders.project.cofounders_needed }}</td>
+                                <td>
+                                    {% for cofounder in project_with_cofounders.cofounders %}
+                                        <a href="{% url 'fprofile' cofounder.id %}" >{{ cofounder.first_name }} {{ cofounder.last_name }} </a>{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td class="text-center">
+                                    {% if project_with_cofounders.project.founder == request.user %}
+                                        <a href="{% url 'editproject' project_with_cofounders.project.id %}" class="text-decoration-none">
+                                            <button type="button" class="btn btn-info btn-sm" data-bs-toggle="tooltip" title="Update sale">
+                                                <i class="fas fa-pen"></i>
+                                            </button>
+                                        </a>
+                                        <!--Print receipt-->
+                                        <a href="{% url 'deleteproject' project_with_cofounders.project.id %}" onclick="return confirm('Are you sure about this ?')" class="text-decoration-none">
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="View Receipt">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                                    </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

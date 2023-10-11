@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br><br>
+<h3>Request from Potential Cofounders</h3><br><hr>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th >#</th>
+                    <th >Project</th>
+                    <th> Request By </th>
+                    <th>Message</th>
+                    <th >Accepted</th>
+                    <th >Date</th>
+                    <th >Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in req %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ req.project.title }}</td>
+                        <td>{{ req.user.first_name }}</td>
+                        <td>{{ req.message }}</td>
+                        <td>{% if req.is_accepted == True %} Yes {% else %} No {% endif %}</td>
+                        <td>{{ req.date_updated}}</td>
+                        <td>
+                            <a href="{% url 'fprofile' req.user.id %}" class="btn btn-primary">View Profile</a>
+                            {% if req.is_accepted == True %}
+                            <a href="{% url 'withdraw' req.id %}" class="btn btn-danger"> Redraw </a>
+                            {% else %}
+                            <a href="{% url 'accept' req.id %}" class="btn btn-success"> Accept </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+                            </table>
+    </div>
+</div>
+</div>
+{% endblock content %}
