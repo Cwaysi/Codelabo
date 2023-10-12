@@ -17,7 +17,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['tech_stack', 'github', 'linkedin', 'phone', 'location']
+        fields = ['about','tech_stack', 'github', 'linkedin', 'phone', 'location']
 
 # signup form from user model
 class SignUpForm(UserCreationForm):

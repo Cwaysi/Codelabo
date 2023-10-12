@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, AbstractUser
 # User Profile Model
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    about = models.TextField('About Me', null=True, blank=True)
     tech_stack = models.ManyToManyField('TechStack', null = True, blank=True)
     github = models.URLField(blank=True, null = True)
     linkedin = models.URLField(blank=True, null = True)

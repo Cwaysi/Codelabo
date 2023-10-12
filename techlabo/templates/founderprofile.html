@@ -8,17 +8,23 @@
 <br><br>
 <h3>Founder's Profile</h3><br><hr>
 <h4>{{ profile.user.first_name }} {{ profile.user.last_name }}</span></h4>
-<p>Location: {{ profile.location }} </p>
-<p>Phone: {{ profile.phone }} </p>
-<p>Tech Stack:
+<span style="font-weight: bold"> <i class="fa fa-user-md" aria-hidden="true"></i> About Me: </span>
+<p>{{ profile.about }}</p>
+<span style="font-weight: bold"><i class="fa fa-map-marker" aria-hidden="true"></i> Location: </span>
+<p>{{ profile.location }} </p>
+<span style="font-weight: bold"> <i class="fa fa-phone-square" aria-hidden="true"></i> Phone: </span>
+<p>{{ profile.phone }} </p>
+<p><span style="font-weight: bold"> <i class="fa fa-file-code-o" aria-hidden="true"></i> Tech Skills </span>
     <ul>
         {% for tech_stack in profile.tech_stack.all %}
             <li>{{ tech_stack.name }}</li>
         {% endfor %}
     </ul>
 </p>
-<p>Github: <a href="{{ profile.github }}">{{ profile.user.first_name }}'s Github</a> </p>
-<p>linkedin: <a href="{{ profile.linkedin}}">{{ profile.user.first_name }}'s Linkedin</a> </p>
-
+<span style="font-weight: bold"> <i class="fa fa-github" aria-hidden="true"></i> Github: </span>
+<p> <a href="{{ profile.github }}">{{ profile.user.first_name }}'s Github</a> </p>
+<span style="font-weight: bold"><i class="fa fa-linkedin-square" aria-hidden="true"></i> Linkedin: </span>
+<p><a href="{{ profile.linkedin}}">{{ profile.user.first_name }}'s Linkedin</a> </p>
+<hr>
 <a href="" class= "btn btn-success">Send Message</a>
 {% endblock content %}
