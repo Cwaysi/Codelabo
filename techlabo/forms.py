@@ -41,4 +41,11 @@ class RequestForm(forms.ModelForm):
         model = ProjectRequest
         fields = ['user', 'message','project']
         exclude = ['user', 'project']
+
+# project request form
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['user', 'message','to']
+        exclude = ['user', 'to']
         

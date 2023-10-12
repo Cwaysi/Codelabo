@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br><br>
+<h3>Messages</h3><br><hr>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th >#</th>
+                    <th >Date</th>
+                    <th> Message </th>
+                    <th>From</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for msg in msg %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ msg.date_created }}</td>
+                        <td>{{ msg.message }}</td>
+                        <td><a href="{% url 'fprofile' msg.user.id %}" >{{ msg.user.first_name }}, {{ msg.user.last_name }} </a></td>           
+                    </tr>
+                {% endfor %}
+            </tbody>
+                            </table>
+    </div>
+</div>
+</div>
+{% endblock content %}

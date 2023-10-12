@@ -1,13 +1,12 @@
-from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from . forms import *
-from django.core.paginator import Paginator
-from django.db.models import Q, Max, F, Count, OuterRef, Subquery
+from django.db.models import Q, Max, F
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.views import View
+from .SMS import send_message
 
 """
     managing all project posts, request, and cofounders managament
@@ -195,12 +194,28 @@ def fprofile (request, id):
     usr = User.objects.get(pk=id)
     try:
         profile = UserProfile.objects.get(user=usr)
+        form = MessageForm(request.POST)
+        if request.method == 'POST':
+            form = MessageForm(request.POST)
+            if form.is_valid():
+                message = form.save(commit=False)
+                message.user = request.user 
+                message.to = usr
+                message.save()
+                msg = str(form.cleaned_data.get('message'))
+                sender = str(request.user.first_name + ", " + request.user.last_name)
+                send_message(str(profile.phone), msg, sender )
+                messages.success(request, 'Message sent successfully!')
+                form = MessageForm(request.POST)
+                #return redirect('home')
         context= {
+            'form':form,
             'profile': profile,
         }
         return render (request, 'founderprofile.html', context)
     except UserProfile.DoesNotExist:
         return redirect('posted')
+    
         
 #all posted projects of current users
 @login_required(login_url="/")
@@ -330,3 +345,15 @@ def cofounding(request):
     }
 
     return render(request, 'cofounding.html', context)
+
+@login_required(login_url="/") 
+def messag(request):
+    """ 
+    get all the current user's messages
+    """
+    usr = request.user
+    msg = Message.objects.filter(to = usr).order_by('-date_created')
+    context = {
+        'msg': msg
+    }
+    return render (request, 'message.html', context)

@@ -18,4 +18,5 @@ urlpatterns = [
     path("request/accept/<int:id>", views.accept, name='accept'),
     path("request/withdraw/<int:id>", views.withdraw, name='withdraw'),
     path("cofounding", views.cofounding, name='cofounding'),
+    path("messages", views.messag, name='messages'),
 ]
